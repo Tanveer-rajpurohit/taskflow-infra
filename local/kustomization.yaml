@@ -6,3 +6,12 @@ resources:
   - config.yaml
   - secret.yaml
   - ingress.yaml
+
+
+replicas:
+  - name: backend
+    count: 1
+  - name: worker
+    count: 2
+  - name: frontend
+    count: 1
