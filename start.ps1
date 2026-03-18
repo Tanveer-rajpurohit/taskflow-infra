@@ -12,7 +12,7 @@ kind delete cluster --name taskflow
 
 Write-Host "2/5 Creating Kubernetes Cluster using 'kind'..." -ForegroundColor Yellow
 # Creates a cluster named 'taskflow' using your explicit cluster.yml setup
-kind create cluster --name taskflow --config k8s/cluster.yml
+kind create cluster --name taskflow --config cluster.yml
 
 Write-Host "3/5 Installing NGINX Ingress Controller for Kind..." -ForegroundColor Yellow
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
@@ -22,7 +22,7 @@ kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.
 
 Write-Host "4/5 Applying Kustomize Local Overlay..." -ForegroundColor Yellow
 # This applies the namespace, base manifests, and local overrides all at once
-kubectl apply -k k8s/local
+kubectl apply -k local
 
 Write-Host "5/5 Waiting for Services to Boot..." -ForegroundColor Yellow
 # Sleep briefly to ensure pods are registered before waiting
