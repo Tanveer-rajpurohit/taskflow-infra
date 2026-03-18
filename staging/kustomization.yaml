@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../base
+  # You would add your staging config.yaml and secret.yaml here
+
+# HERE IS HOW YOU CHANGE REPLICAS WITHOUT TOUCHING THE BASE YAML
+replicas:
+  - name: backend
+    count: 2
+  - name: worker
+    count: 5
+  - name: frontend
+    count: 2

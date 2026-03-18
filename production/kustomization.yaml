@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../base
+  # You would add your production config.yaml and secret.yaml here
+
+# In production, we scale up significantly!
+replicas:
+  - name: backend
+    count: 10
+  - name: worker
+    count: 20
+  - name: frontend
+    count: 10
