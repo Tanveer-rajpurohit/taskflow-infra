@@ -2,6 +2,12 @@
 
 This directory contains the Kubernetes manifests designed to deploy the TaskFlow AI Platform using an enterprise-grade structure via **Kustomize**.
 
+## Architecture
+
+![TaskFlow Architecture](./image.png)
+
+*The CI/CD layout and Kubernetes networking architecture for the TaskFlow platform.*
+
 ## Directory Structure
 
 We use Kustomize overlays to manage configurations across multiple environments without duplicating YAML files:

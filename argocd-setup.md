@@ -1,5 +1,11 @@
 # Argo CD Setup Guide
 
+## Architecture
+
+![TaskFlow Architecture](./image.png)
+
+*The CI/CD layout and Kubernetes networking architecture for the TaskFlow platform.*
+
 Follow these steps to install and configure Argo CD on your local Kubernetes cluster.
 
 ## 1. Install Argo CD
@@ -112,3 +118,20 @@ kubectl describe application taskflow -n argocd
 ```
 
 Once applied, the application will appear in the Argo CD UI web page, and it will begin synchronizing your `taskflow` deployment to the cluster automatically.
+
+## 6. Troubleshooting: After a PC / Docker Restart
+
+If you restart your computer or Docker, local Kubernetes might not shut down gracefully. This can cause Argo CD pods (especially the repo server) to get stuck, leading to errors in the Argo CD dashboard like `connection refused` or `Unable to load data`.
+
+To fix this and wake Argo CD back up, run this command in your terminal:
+
+```powershell
+kubectl rollout restart deployment -n argocd
+# (Or optionally restart the statefulsets and pods)
+kubectl delete pod --force -n argocd -l app.kubernetes.io/name=argocd-repo-server
+```
+
+After running that command to recreate the stuck pods:
+1. Wait about 30 seconds for the pods to restart.
+2. Go back to your Argo CD dashboard (`https://localhost:8080`).
+3. Click the **Refresh** and **Sync** buttons on your `taskflow` application to get everything cleanly connected and synced again.
